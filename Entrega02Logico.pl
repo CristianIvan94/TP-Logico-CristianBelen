@@ -23,6 +23,10 @@ encargo(bernardo, vincent, buscar(jules, fuerteApache)).
 encargo(bernardo, winston, buscar(jules, sanMartin)).
 encargo(bernardo, winston, buscar(jules, lugano)).
 
+trabajaPara(marsellus, vincent).
+trabajaPara(marsellus, jules).
+trabajaPara(marsellus, winston).
+
 amigo(vincent, jules).
 amigo(jules, jimmie).
 amigo(vincent, elVendedor).
@@ -39,6 +43,26 @@ personajePeligroso(Personaje) :-
 personajePeligroso(Personaje) :-
 	encargo(Jefe,Personaje,_),
 	personajePeligroso(Jefe).
+
+%Ejercicio02
+sonAmigos(Personaje,OtroPersonaje):-
+	amigo(Personaje,OtroPersonaje).	
+sonAmigos(Personaje,OtroPersonaje):-
+	amigo(OtroPersonaje,Personaje).
+	
+trabajanJuntos(Personaje,OtroPersonaje):-
+	trabajaPara(Personaje,OtroPersonaje).	
+trabajanJuntos(Personaje,OtroPersonaje):-
+	trabajaPara(OtroPersonaje,Personaje).	
+	
+estanCerca(Personaje,OtroPersonaje):-
+	sonAmigos(Personaje,OtroPersonaje).
+estanCerca(Personaje,OtroPersonaje):-
+	trabajanJuntos(Personaje,OtroPersonaje).
+
+sanCayetano(Personaje):-
+	estanCerca(Personaje,OtroPersonaje),
+	forall(estanCerca(Personaje,OtroPersonaje),encargo(Personaje,OtroPersonaje,_)).
 	
 
 %Ejercicio03
@@ -79,6 +103,26 @@ esRespetable(Personaje) :-
 noEsRespetable(Personaje) :-
 	personaje(Personaje,_),
 	not(esRespetable(Personaje)).
+
+%Ejercicio05
+
+cantidadEncargos(Personaje,Cantidad) :-
+	encargo(_,Personaje,_),
+	findall(Encargo,encargo(_,Personaje,Encargo),ListaEncargos),
+	length(ListaEncargos,Cantidad).
+
+mayorCantEncargosQue(Personaje,OtroPersonaje):-
+	cantidadEncargos(Personaje,Cantidad1),
+	cantidadEncargos(OtroPersonaje,Cantidad2),
+	Personaje\=OtroPersonaje,
+	Cantidad1>Cantidad2.
+
+masTareas(Personaje):-
+	encargo(_,Personaje,_),
+	forall((cantidadEncargos(OtroPersonaje,_),Personaje\=OtroPersonaje),mayorCantEncargosQue(Personaje,OtroPersonaje)).
+	
+	
+
 	
 
 	

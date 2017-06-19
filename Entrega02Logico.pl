@@ -23,6 +23,9 @@ encargo(bernardo, vincent, buscar(jules, fuerteApache)).
 encargo(bernardo, winston, buscar(jules, sanMartin)).
 encargo(bernardo, winston, buscar(jules, lugano)).
 
+
+
+
 trabajaPara(marsellus, vincent).
 trabajaPara(marsellus, jules).
 trabajaPara(marsellus, winston).

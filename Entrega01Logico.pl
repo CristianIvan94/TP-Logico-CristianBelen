@@ -27,24 +27,21 @@ saleCon(Persona1,Persona2) :-
 	Persona1 \= Persona2.
 	
 %EJercicio04
+% Expresar esFiel/1 en terminos de la logica.
+% sale con alguien y no sale con otro.
 esFiel(Persona) :-
 	saleCon(_,Persona),
 	findall(Pareja, saleCon(Pareja,Persona) , Novios ),
 	length(Novios,Cantidad),
-	Cantidad = 1.
+	Cantidad = 1. % Nunca usar el =, si ya sabemos el individuo lo utilizamos en la consulta.
 	
 %Ejercicio05-La cláusula si es recursiva-
 %CasoBase
 acataOrden(Empleador,Empleado) :-
 	trabajaPara(Empleador,Empleado).
+
 %CasoRecursivo
 acataOrden(Empleador,Empleado) :- 
 	trabajaPara(Empleador,Alguien),
 	acataOrden(Alguien,Empleado).
-	
-
-	
-
-
-	
 	

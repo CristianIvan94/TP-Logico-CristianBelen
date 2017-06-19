@@ -32,13 +32,16 @@ amigo(jules, jimmie).
 amigo(vincent, elVendedor).
 
 %Ejercicio01
+% Ver si esPeligroso le podemos dar comportamiento,
+% sino 'chau, chau, adios'
+% Recuperar la abstraccion, actividadPeligrosa/1
 esPeligroso(Personaje) :-
 	personajePeligroso(Personaje).
 
 personajePeligroso(Personaje) :-
 	personaje(Personaje, mafioso(maton)).
 personajePeligroso(Personaje) :-
-	personaje(Personaje, ladron(Lista)),
+	personaje(Personaje, ladron(Lista)), % Expresividad en la variable lista
 	member(licorerias,Lista).
 personajePeligroso(Personaje) :-
 	encargo(Jefe,Personaje,_),
@@ -60,12 +63,16 @@ estanCerca(Personaje,OtroPersonaje):-
 estanCerca(Personaje,OtroPersonaje):-
 	trabajanJuntos(Personaje,OtroPersonaje).
 
+% Corregir el forall/2
 sanCayetano(Personaje):-
 	estanCerca(Personaje,OtroPersonaje),
 	forall(estanCerca(Personaje,OtroPersonaje),encargo(Personaje,OtroPersonaje,_)).
 	
 
 %Ejercicio03
+% Quitar la repeticion de logica de generar la actividad
+% Quitar el maldito 'is' :( 
+% donde no es necesario
 nivelRespeto(Personaje,Nivel) :-
 	nivel(Personaje,Nivel).
 	
@@ -82,6 +89,9 @@ nivel(Personaje,Nivel) :-
 nivel(vincent,15).
 
 %Ejercicio04
+% respetables/1 por cantidadRespetables/1, asi se entiende que trabaja sobre una cantidad. Tmb para no respetables
+% Quitar el is...
+
 respetabilidad(Respetables,NoRespetables) :-
 	respetable(Respetables),
 	noRespetable(NoRespetables).
@@ -119,20 +129,8 @@ mayorCantEncargosQue(Personaje,OtroPersonaje):-
 
 masTareas(Personaje):-
 	encargo(_,Personaje,_),
-	forall((cantidadEncargos(OtroPersonaje,_),Personaje\=OtroPersonaje),mayorCantEncargosQue(Personaje,OtroPersonaje)).
-	
-	
-
-	
-
-	
-
-
-	
-	
-	
-	
-	
-
-	
+	forall(
+		(cantidadEncargos(OtroPersonaje,_),Personaje\=OtroPersonaje),
+		mayorCantEncargosQue(Personaje,OtroPersonaje)
+	).
 	
